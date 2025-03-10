@@ -118,7 +118,7 @@ const Skills = () => {
         <h2 className="text-4xl font-bold text-zinc-900 dark:text-white text-center uppercase mb-10">
           Skills
         </h2>
-        <div className="grid grid-cols-12 gap-5">
+        <div className="grid grid-cols-12 gap-5 overflow-hidden">
           <motion.div
             initial={{ x: -100 }}
             whileInView={{
