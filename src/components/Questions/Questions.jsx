@@ -36,7 +36,7 @@ const data = [
       >
         <div className="grid grid-cols-12 gap-5 place-items-center md:place-items-start">
           <div className="col-span-12 flex items-center justify-between gap-5">
-            <span className="flex justify-center items-center w-[40px] h-[40px] rounded-full bg-[#C6FB50] dark:bg-white">
+            <span className="flex justify-center items-center w-[40px] h-[40px] shrink-0 rounded-full bg-[#C6FB50] dark:bg-white">
               <Sparkles className="w-5 text-zinc-900" />
             </span>
             <h3 className="text-xl text-left font-medium text-zinc-900 dark:text-[#C6FB50]">
