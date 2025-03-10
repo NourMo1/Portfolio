@@ -1,0 +1,50 @@
+@import "tailwindcss";
+@config "../tailwind.config.js";
+@custom-variant dark (&:where(.dark, .dark *));
+
+:root {
+  font-family: "Unbounded", serif;
+  --third-color: #C6FB50;
+}
+* {
+  @apply transition-colors duration-300
+}
+body {
+  line-height: 1.8;
+}
+::selection {
+  background-color: var(--third-color);
+  color: #18181b;
+}
+.bg-third {
+  background-color: var(--third-color);
+}
+.text-third {
+  color: var(--third-color);
+}
+.hero-btn {
+  @apply px-9 py-3 rounded-4xl font-medium
+}
+.nav-link::after {
+  pointer-events: none;
+  transform-origin: 100% 50%;
+  transform: scale3d(0, 1, 1);
+  transition: transform 0.3s;
+}
+.nav-link:hover::after {
+  transform-origin: 0% 50%;
+  transform: scale3d(1, 1, 1);
+}
+.active::after {
+  transform-origin: 0 50%; 
+  transform: scale3d(1, 1, 1);
+}
+input, textarea {
+  transition: border-color .3s;
+}
+label svg.moon {
+  fill: black;
+}
+input:checked + label svg.moon {
+  fill: yellow;
+}
