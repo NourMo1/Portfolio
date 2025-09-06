@@ -1,0 +1,14 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+@font-face {
+  font-family: Clash Display Variable;
+  src: url(https://cdn.prod.website-files.com/67b9c57e353d3f0c855d8b93/67cc37553748d7a574eb68c5_ClashDisplay-Variable.woff2)format("woff2");
+  font-weight: 200 700;
+  font-style: normal;
+  font-display: swap;
+}
+body {
+  font-family: "Montserrat", sans-serif;
+}
+h1,h2,h3,h4,h5,h6, .logo-header {
+  font-family: Clash Display Variable;
+}

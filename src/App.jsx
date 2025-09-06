@@ -1,21 +1,21 @@
-import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import './App.css'
-import Layout from './components/Layout/Layout';
-import Home from './components/Home/Home';
-import Projects from './components/Projects/Projects';
-import Contact from './components/Contact/Contact';
-import Error from './components/Error/Error';
-import ProjectsContextProvider from './components/Context/ProjectsContext';
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { Toaster } from 'react-hot-toast';
+import Layout from "./layout/Layout";
+import Home from "./pages/Home";
+import Projects from "./pages/Projects";
+import Contact from "./pages/Contact";
+import Error from "./pages/Error";
 
 function App() {
-  
+
   const router = createBrowserRouter([
     {
       path: "/",
       element: <Layout />,
       children: [
         { path: "/", element: <Home /> },
+        { path: "/home", element: <Home /> },
         { path: "/projects", element: <Projects /> },
         { path: "/contact", element: <Contact /> },
         { path: "*", element: <Error /> },
@@ -24,10 +24,10 @@ function App() {
   ]);
 
   return (
-    <ProjectsContextProvider>
+    <>
       <Toaster />
       <RouterProvider router={router} />
-    </ProjectsContextProvider>
+    </>
   );
 }
 
