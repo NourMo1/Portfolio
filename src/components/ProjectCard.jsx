@@ -16,12 +16,12 @@ const ProjectCard = ({ image, title, repo, demo, description, features }) => {
         <Link
           to={demo}
           onClick={openInNewTab}
-          className="flex justify-center items-center px-2 py-1 sm:px-3 sm:py-2 w-10 h-10 rounded-lg bg-[#fff7] backdrop-blur-md absolute top-2 right-2 group transition-all duration-700 ease-in-out hover:w-35 group overflow-hidden"
+          className="flex justify-center items-center px-2 py-1 sm:px-3 sm:py-2 w-10 h-10 rounded-lg bg-[#fff7] backdrop-blur-md absolute top-2 right-2 group transition-all duration-700 ease-in-out hover:w-25 group overflow-hidden"
         >
-          <i className="fa-brands fa-github text-lg text-[#1A1A1A] group-hover:me-2"></i>
+          <i className="fa-solid fa-eye text-lg text-[#1A1A1A] group-hover:me-2"></i>
           <div className="hidden group-hover:flex items-center gap-2">
             <p className="text-[#1A1A1A] font-medium opacity-0 group-hover:opacity-100">
-              Repository
+              View
             </p>
           </div>
         </Link>

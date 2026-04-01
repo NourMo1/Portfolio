@@ -21,7 +21,7 @@ const About = () => {
                 alt="Icon"
               />
               <p className="text-[#F5F5F5] font-medium dark:text-text-primary text-xs md:text-sm">
-                Hi, I'm Nour Al-din Mohamed
+                Hi, I'm Nour Aldin Mohamed
               </p>
             </div>
             <h2 className="text-text-primary text-xl sm:text-2xl md:text-4xl font-bold leading-8 md:leading-12 mt-5">
@@ -62,7 +62,7 @@ const About = () => {
               </p>
             </div>
           </div>
-          <div className="col-span-12 sm:col-span-4 text-center p-4 bg-surface">
+          <div className="col-span-12 sm:col-span-4 text-center p-4 w-full bg-surface">
             <div className="p-4">
               <span className="block text-primary text-lg sm:text-xl md:text-2xl lg:text-4xl font-bold mb-5">
                 18

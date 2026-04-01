@@ -31,13 +31,13 @@ const BackToTop = () => {
     <button
       onClick={scrollToTop}
       className={`
-        fixed right-5 bottom-5 z-10 cursor-pointer flex justify-center items-center 
+        group fixed right-5 bottom-5 z-10 cursor-pointer flex justify-center items-center 
         w-[40px] h-[40px] md:w-[50px] md:h-[50px] rounded-lg bg-text-primary shadow-xl 
         transition-all duration-300 ease-in-out
         ${
           isVisible
             ? "opacity-100 translate-y-0 scale-100"
-            : "opacity-0 translate-y-5 scale-90"
+            : "opacity-0 translate-y-5 scale-90 pointer-events-none"
         }
       `}
       >
