@@ -60,7 +60,7 @@ const Footer = () => {
               iconColor="text-white"
               type={"button"}
               icon={MoveRight}
-              to={"/projects"}
+              to={"/contact"}
             />
           </div>
           <div className="social col-span-12 md:col-span-6 place-content-center">

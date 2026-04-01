@@ -1,7 +1,7 @@
 import { useRef } from 'react'
 import emailjs from "@emailjs/browser";
 import { toast } from "react-hot-toast";
-import { Check, MoveRight, X } from "lucide-react";
+import { Check, MoveRight, OctagonX } from "lucide-react";
 import Button from '../components/Button';
 
 const Contact = () => {
@@ -10,8 +10,8 @@ const Contact = () => {
   const sendEmail = (e) => {
     e.preventDefault();
     emailjs
-      .sendForm("service_rfjevjo", "template_3zthx9a", form.current, {
-        publicKey: "AzU_lIAeJrloeBlBq",
+      .sendForm("service_0styupg", "template_3zthx9a", form.current, {
+        publicKey: "dNX-iAMXx1ATKsq2i",
       })
       .then(
         () => {
@@ -19,15 +19,15 @@ const Contact = () => {
             <div
               className={`${
                 t.visible ? "animate-enter" : "animate-leave"
-              } max-w-md w-full bg-zinc-700 shadow-lg rounded-4xl pointer-events-auto p-4`}
+              } bg-white dark:bg-surface shadow-lg rounded-lg border-2 border-primary pointer-events-auto px-2 py-1 sm:px-4 sm:py-2`}
             >
-              <div className="flex justify-between items-center flex-nowrap">
-                <div className="text-third me-3">
-                  <Check />
+              <div className="flex gap-3 justify-start items-center flex-nowrap">
+                <div className="text-third">
+                  <Check className="text-green-500" />
                 </div>
                 <div>
-                  <p className="text-sm font-medium text-[#f5f5f5]">
-                    Thank you! Your submission has been received.
+                  <p className="text-sm font-medium text-text-primary">
+                    Thank you! Your submission has been received
                   </p>
                 </div>
               </div>
@@ -39,21 +39,21 @@ const Contact = () => {
             <div
               className={`${
                 t.visible ? "animate-enter" : "animate-leave"
-              } max-w-md w-full bg-zinc-700 shadow-lg rounded-4xl pointer-events-auto p-4`}
+              } bg-white dark:bg-surface shadow-lg rounded-lg border-2 border-primary pointer-events-auto px-2 py-1 sm:px-4 sm:py-2`}
             >
-              <div className="flex justify-between items-center flex-nowrap">
-                <div className="text-third me-3">
-                  <X />
+              <div className="flex gap-3 justify-start items-center flex-nowrap">
+                <div className="text-third">
+                  <OctagonX className="text-red-500" />
                 </div>
                 <div>
-                  <p className="text-sm font-medium text-[#f5f5f5]">
-                    Submission failed. Check your input and try again.
+                  <p className="text-sm font-medium text-text-primary">
+                    Submission failed. Check your input and try again
                   </p>
                 </div>
               </div>
             </div>
           ));
-        }
+        },
       );
   };
   
