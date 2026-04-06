@@ -10,20 +10,20 @@ const ProjectCard = ({ image, title, repo, demo, description, features }) => {
   };
 
   return (
-    <div className="project rounded-lg md:rounded-xl h-full flex flex-col overflow-hidden transition-all duration-300 hover:shadow-lg">
+    <div className="project rounded-lg md:rounded-xl h-full flex flex-col overflow-hidden transition-all duration-500 hover:shadow-lg">
       <div className="image relative">
         <img className="w-full" src={image} alt={title} loading={"lazy"} />
         <Link
           to={demo}
           onClick={openInNewTab}
-          className="flex justify-center items-center px-2 py-1 sm:px-3 sm:py-2 w-10 h-10 rounded-lg bg-[#fff7] backdrop-blur-md absolute top-2 right-2 group transition-all duration-700 ease-in-out hover:w-25 group overflow-hidden"
+          className="group absolute top-2 right-2 flex h-10 w-10 items-center overflow-hidden rounded-xl bg-white/70 backdrop-blur-md shadow-sm transition-all duration-500 ease-out hover:w-24 hover:bg-white/90 hover:shadow-md"
         >
-          <i className="fa-solid fa-eye text-lg text-[#1A1A1A] group-hover:me-2"></i>
-          <div className="hidden group-hover:flex items-center gap-2">
-            <p className="text-[#1A1A1A] font-medium opacity-0 group-hover:opacity-100">
-              View
-            </p>
+          <div className="flex h-full w-10 shrink-0 items-center justify-center">
+            <i className="fa-solid fa-eye text-lg text-[#1A1A1A] transition-transform duration-500 group-hover:scale-110" />
           </div>
+          <span className="whitespace-nowrap font-semibold text-[#1A1A1A] text-sm opacity-0 -translate-x-2 transition-all duration-500 ease-out group-hover:translate-x-0 group-hover:opacity-100">
+            View
+          </span>
         </Link>
       </div>
       <div className="p-4 bg-background grow">
@@ -36,7 +36,7 @@ const ProjectCard = ({ image, title, repo, demo, description, features }) => {
             <h3 className="text-xl md:text-2xl font-semibold text-primary">
               {title}
             </h3>
-            <MoveRight className="w-5 text-primary opacity-0 scale-50 group-hover:scale-100 group-hover:opacity-100 group-hover:translate-x-3" />
+            <MoveRight className="text-primary w-4 opacity-0 group-hover:opacity-100 scale-50 group-hover:scale-100 group-hover:translate-x-3 transition-all duration-500" />
           </Link>
           <p className="text-text-primary font-normal text-sm md:text-lg">
             {description}

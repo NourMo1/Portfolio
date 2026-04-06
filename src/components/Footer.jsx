@@ -71,7 +71,7 @@ const Footer = () => {
                     <Link
                       onClick={openInNewTab}
                       to={item.link}
-                      className={`flex justify-center items-center w-[40px] h-[40px] md:w-[50px] md:h-[50px] rounded-lg ${item.linkBg} group-hover:shadow-lg group-hover:bg-white duration-700`}
+                      className={`flex justify-center items-center w-[40px] h-[40px] md:w-[50px] md:h-[50px] rounded-lg ${item.linkBg} group-hover:shadow-lg group-hover:bg-white duration-500`}
                     >
                       <i
                         className={`fa-brands ${item.icon} text-xl text-white ${item.iconBg} duration-500`}
@@ -93,14 +93,7 @@ const Footer = () => {
             >
               NourMo
             </Link>{" "}
-            · Crafted with passion — Inspired by{" "}
-            <Link
-              target="_blank"
-              to={"https://www.eclipso.studio/"}
-              className="inline-block text-text-primary dark:text-primary font-semibold"
-            >
-              Eclipso Studio™
-            </Link>
+            · Crafted with passion and creativity. All rights reserved. 
           </p>
         </div>
       </div>

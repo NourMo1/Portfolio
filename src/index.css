@@ -34,11 +34,17 @@
   --border: #262626;
   --glassy-bg: rgba(252, 165, 165, 0.25);  /* #FCA5A5 dark */       
 }
-* {
-  @apply transition-all duration-500
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  /* Do NOT put overflow-x: hidden on the body, it breaks ScrollSmoother! */
 }
 body {
   line-height: 1.8;
+}
+#smooth-wrapper {
+  overflow: hidden;
 }
 ::selection {
   background-color: var(--primary);
@@ -71,6 +77,12 @@ body {
     #FCA5A5 0%,
     #1A1A1A 100%
   );
+}
+.text-mask {
+  overflow: hidden; 
+}
+.text-reveal, .text-reveal-2 {
+  will-change: transform;
 }
 .about {
   background: linear-gradient(

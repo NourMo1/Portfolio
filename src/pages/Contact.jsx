@@ -1,11 +1,76 @@
-import { useRef } from 'react'
+import { useRef } from "react";
 import emailjs from "@emailjs/browser";
 import { toast } from "react-hot-toast";
 import { Check, MoveRight, OctagonX } from "lucide-react";
-import Button from '../components/Button';
+import Button from "../components/Button";
+
+// 1. Import GSAP and ALL plugins, including ScrollSmoother
+import gsap from "gsap";
+import { useGSAP } from "@gsap/react";
+import { ScrollTrigger, SplitText, ScrollSmoother } from "gsap/all";
+
+// 2. Register plugins
+gsap.registerPlugin(useGSAP, ScrollTrigger, SplitText, ScrollSmoother);
 
 const Contact = () => {
   const form = useRef();
+  const containerRef = useRef(null);
+
+  useGSAP(
+    () => {
+      // 3. Initialize ScrollSmoother first
+      ScrollSmoother.create({
+        wrapper: "#smooth-wrapper",
+        content: "#smooth-content",
+        smooth: 1.5,
+        effects: true,
+      });
+
+      document.fonts.ready.then(() => {
+        const headerSplit = new SplitText("h2.text-split", { type: "lines" });
+        const paraSplit = new SplitText("p.text-split", { type: "lines" });
+
+        const tl = gsap.timeline({
+          scrollTrigger: {
+            // Target the smooth-content wrapper for accurate triggering
+            trigger: "#smooth-content",
+            start: "top 80%",
+            toggleActions: "play none none none",
+          },
+        });
+
+        // 4. Chain the animations
+        tl.from(headerSplit.lines, {
+          yPercent: 100,
+          opacity: 0,
+          duration: 1.2,
+          ease: "expo.out",
+          stagger: 0.1,
+        })
+          .from(
+            paraSplit.lines,
+            {
+              yPercent: 100,
+              opacity: 0,
+              duration: 1.2,
+              ease: "expo.out",
+              stagger: 0.1,
+            },
+            "-=0.6",
+          )
+        });
+        gsap.from(
+          ".form-wrapper",
+          {
+            y: 50,
+            opacity: 0,
+            duration: 0.8,
+            ease: "power2.out",
+          }
+        );
+    },
+    { scope: containerRef },
+  );
 
   const sendEmail = (e) => {
     e.preventDefault();
@@ -56,76 +121,82 @@ const Contact = () => {
         },
       );
   };
-  
+
   return (
-    <section className="contact pt-20">
-      <div className="container max-w-screen-xl mx-auto px-4">
-        <div className="py-20">
-          <div className="text-center mb-10">
-            <h2 className="text-2xl md:text-4xl font-semibold text-text-primary mb-5">
-              Let's Grow Together!
-            </h2>
-            <p className="text-sm md:text-lg font-medium text-text-secondary w-full mx-auto sm:max-w-[70%] lg:max-w-[60%] xl:max-w-[50%]">
-              Awesome, you finally made your decision here! Fill this form & i
-              will contact you back :)
-            </p>
-          </div>
-          <div className="form p-4 md:p-8 bg-surface shadow-lg rounded-xl mx-auto md:w-[80%] lg:w-[70%]">
-            <form ref={form} onSubmit={sendEmail}>
-              <div className="grid grid-cols-12 gap-5">
-                <div className="name col-span-12 md:col-span-6">
-                  <label
-                    htmlFor="name"
-                    className="block mb-3 w-fit text-text-primary"
-                  >
-                    Name
-                  </label>
-                  <input
-                    name="user_name"
-                    type="text"
-                    id="name"
-                    className="block p-3 bg-background text-text-primary outline-0 border-1 border-border focus:border-primary rounded-lg w-full"
-                    required
-                  />
-                </div>
-                <div className="email col-span-12 md:col-span-6">
-                  <label
-                    htmlFor="email"
-                    className="block mb-3 w-fit text-text-primary"
-                  >
-                    Email
-                  </label>
-                  <input
-                    name="user_email"
-                    type="email"
-                    id="email"
-                    className="block p-3 bg-background text-text-primary outline-0 border-1 border-border focus:border-primary rounded-lg w-full"
-                    required
-                  />
-                </div>
-                <div className="message col-span-12 mb-15">
-                  <label
-                    htmlFor="message"
-                    className="block mb-3 w-fit text-text-primary"
-                  >
-                    Message
-                  </label>
-                  <textarea
-                    name="message"
-                    type="text"
-                    id="message"
-                    className="block p-3 bg-background text-text-primary outline-0 border-1 border-border focus:border-primary rounded-lg w-full resize-none h-30"
-                    required
-                  ></textarea>
-                </div>
+    // 5. Wrap the entire section in the ScrollSmoother div structure
+    <div id="smooth-wrapper" ref={containerRef}>
+      <div id="smooth-content">
+        <section className="contact pt-20">
+          <div className="container max-w-screen-xl mx-auto px-4">
+            <div className="py-20">
+              <div className="text-center mb-10">
+                <h2 className="text-split text-2xl md:text-4xl font-semibold text-text-primary mb-5">
+                  Let's Grow Together!
+                </h2>
+                <p className="text-split text-sm md:text-lg font-medium text-text-secondary w-full mx-auto sm:max-w-[70%] lg:max-w-[60%] xl:max-w-[50%]">
+                  Awesome, you finally made your decision here! Fill this form &
+                  i will contact you back :)
+                </p>
               </div>
-              <Button content={"Submit"} type={"submit"} icon={MoveRight} />
-            </form>
+
+              <div className="form-wrapper form p-4 md:p-8 bg-surface shadow-lg rounded-xl mx-auto md:w-[80%] lg:w-[70%]">
+                <form ref={form} onSubmit={sendEmail}>
+                  <div className="grid grid-cols-12 gap-5">
+                    <div className="name col-span-12 md:col-span-6">
+                      <label
+                        htmlFor="name"
+                        className="block mb-3 w-fit text-text-primary"
+                      >
+                        Name
+                      </label>
+                      <input
+                        name="user_name"
+                        type="text"
+                        id="name"
+                        className="block p-3 bg-background text-text-primary outline-0 border-1 border-border focus:border-primary rounded-lg w-full"
+                        required
+                      />
+                    </div>
+                    <div className="email col-span-12 md:col-span-6">
+                      <label
+                        htmlFor="email"
+                        className="block mb-3 w-fit text-text-primary"
+                      >
+                        Email
+                      </label>
+                      <input
+                        name="user_email"
+                        type="email"
+                        id="email"
+                        className="block p-3 bg-background text-text-primary outline-0 border-1 border-border focus:border-primary rounded-lg w-full"
+                        required
+                      />
+                    </div>
+                    <div className="message col-span-12 mb-15">
+                      <label
+                        htmlFor="message"
+                        className="block mb-3 w-fit text-text-primary"
+                      >
+                        Message
+                      </label>
+                      <textarea
+                        name="message"
+                        type="text"
+                        id="message"
+                        className="block p-3 bg-background text-text-primary outline-0 border-1 border-border focus:border-primary rounded-lg w-full resize-none h-30"
+                        required
+                      ></textarea>
+                    </div>
+                  </div>
+                  <Button content={"Submit"} type={"submit"} icon={MoveRight} />
+                </form>
+              </div>
+            </div>
           </div>
-        </div>
+        </section>
       </div>
-    </section>
+    </div>
   );
-}
+};
 
 export default Contact;

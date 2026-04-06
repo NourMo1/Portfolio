@@ -1,19 +1,80 @@
-import { projects } from '../data/projects';
-import Button from './Button';
-import { MoveRight } from 'lucide-react';
-import ProjectCard from './ProjectCard';
+import { projects } from "../data/projects";
+import Button from "./Button";
+import { MoveRight } from "lucide-react";
+import ProjectCard from "./ProjectCard";
+import gsap from "gsap";
+import { ScrollTrigger, SplitText } from "gsap/all";
+import { useGSAP } from "@gsap/react";
+import { useRef } from "react";
+
+gsap.registerPlugin(useGSAP, ScrollTrigger, SplitText);
 
 const FeaturedProjects = () => {
+  const containerRef = useRef(null);
+
+  useGSAP(
+    () => {
+      document.fonts.ready.then(() => {
+        const hSplit = new SplitText("h2.header-split", { type: "lines" });
+
+        const tl = gsap.timeline({
+          scrollTrigger: {
+            trigger: containerRef.current,
+            start: "top 60%",
+            toggleActions: "play none none none",
+          },
+        });
+
+        // CHAIN EVERYTHING TO THE TIMELINE
+        tl.from(hSplit.lines, {
+          yPercent: 100,
+          opacity: 0,
+          duration: 1.2,
+          ease: "expo.out",
+          stagger: 0.1,
+        })
+          .to(
+            ".button",
+            {
+              y: 0,
+              opacity: 1,
+              duration: 1,
+              ease: "back.inOut",
+              stagger: 0.1,
+            },
+            "-=0.8",
+          ) // Added overlap so it flows smoother
+        });
+        gsap.from(
+          ".project-cards > div",
+          {
+            // Changed gsap.from to .from to chain it
+            y: 50,
+            opacity: 0,
+            duration: 0.8,
+            ease: "power2.out",
+            stagger: 0.15,
+            scrollTrigger: {
+              trigger: containerRef.current,
+              start: "top 60%",
+              toggleActions: "play none none none",
+            }
+          },
+          "-=0.6",
+        );
+    },
+    { scope: containerRef },
+  );
 
   return (
-    <section className="featured py-20 bg-background">
+    <section ref={containerRef} className="featured py-20 bg-background">
       <div className="container max-w-screen-xl mx-auto px-4">
         <div className="p-4 md:p-8 bg-surface text-text-primary rounded-xl border-2 border-border">
           <div className="flex flex-wrap justify-between items-center mb-10">
-            <h2 className="text-2xl md:text-4xl font-semibold text-third">
+            <h2 className="header-split text-2xl md:text-4xl font-semibold text-third">
               Featured projects
             </h2>
-            <div className="mt-3 md:mt-0">
+            <div className="button opacity-0 mt-3 md:mt-0">
               <Button
                 content={"View More"}
                 type={"button"}
@@ -22,18 +83,19 @@ const FeaturedProjects = () => {
               />
             </div>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+          <div className="project-cards grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
             {projects.featureProjects.map(function (project, index) {
               return (
-                <ProjectCard
-                  key={index}
-                  title={project.title}
-                  image={project.image}
-                  repo={project.repo}
-                  demo={project.demo}
-                  description={project.description}
-                  features={project.features}
-                />
+                <div key={index}>
+                  <ProjectCard
+                    title={project.title}
+                    image={project.image}
+                    repo={project.repo}
+                    demo={project.demo}
+                    description={project.description}
+                    features={project.features}
+                  />
+                </div>
               );
             })}
           </div>
@@ -41,6 +103,6 @@ const FeaturedProjects = () => {
       </div>
     </section>
   );
-}
+};
 
-export default FeaturedProjects
+export default FeaturedProjects;

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { MoveUp } from "lucide-react";
+import { ChevronsUp } from "lucide-react";
 
 const BackToTop = () => {
   const [isVisible, setIsVisible] = useState(false);
@@ -33,15 +33,15 @@ const BackToTop = () => {
       className={`
         group fixed right-5 bottom-5 z-10 cursor-pointer flex justify-center items-center 
         w-[40px] h-[40px] md:w-[50px] md:h-[50px] rounded-lg bg-text-primary shadow-xl 
-        transition-all duration-300 ease-in-out
+        transition-all duration-500 ease-in-out
         ${
           isVisible
             ? "opacity-100 translate-y-0 scale-100"
             : "opacity-0 translate-y-5 scale-90 pointer-events-none"
         }
       `}
-      >
-      <MoveUp className="text-surface w-5 transition-transform duration-300 group-hover:-translate-y-1" />
+    >
+      <ChevronsUp className="text-surface w-8 transition-transform duration-300 group-hover:-translate-y-1" />
     </button>
   );
 };
