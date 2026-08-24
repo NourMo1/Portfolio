@@ -27,7 +27,7 @@ const DarkMode = () => {
     <button
       onClick={() => setDarkMode(!darkMode)}
       // Added `relative` and `overflow-hidden` to keep the icons contained
-      className="relative flex items-center justify-center cursor-pointer p-2 w-9 h-9 bg-background text-text-primary rounded-xl overflow-hidden"
+      className="relative flex items-center justify-center cursor-pointer p-2 w-9 h-9 bg-surface/50 text-text-primary rounded-xl border border-border overflow-hidden"
       aria-label="Toggle theme"
     >
       {/* Sun Icon (Shows in Dark Mode) */}

@@ -1,6 +1,15 @@
 import { useNavigate } from "react-router-dom";
 
-const Button = ({ content = "Click Me", type = "button", btnClass = "bg-primary text-white", iconBgColor ="bg-surface", iconColor = "text-text-primary", icon: Icon, to, download }) => {
+const Button = ({
+  content = "Click Me",
+  type = "button",
+  btnClass = "bg-primary text-white",
+  iconBgColor = "bg-surface",
+  iconColor = "text-text-primary",
+  icon: Icon,
+  to,
+  download,
+}) => {
   const navigate = useNavigate();
 
   function navigateToHome() {
@@ -15,7 +24,7 @@ const Button = ({ content = "Click Me", type = "button", btnClass = "bg-primary 
       navigate(to);
     }
   }
-  
+
   return (
     <div className="inline-block rounded-xl">
       <button
@@ -28,7 +37,7 @@ const Button = ({ content = "Click Me", type = "button", btnClass = "bg-primary 
         >
           {Icon && <Icon size={20} className={iconColor} />}
         </div>
-        <p className="translate-x-2 ps-[50px] text-sm md:text-[16px] font-medium">
+        <p className="translate-x-2 ps-[40px] md:ps-[30px] text-sm md:text-[16px] font-medium">
           {content}
         </p>
       </button>

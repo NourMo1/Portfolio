@@ -38,30 +38,26 @@ const Projects = () => {
           duration: 1.2,
           ease: "expo.out",
           stagger: 0.1,
-        })
-          .from(
-            paraSplit.lines,
-            {
-              yPercent: 100,
-              opacity: 0,
-              duration: 1.2,
-              ease: "expo.out",
-              stagger: 0.1,
-            },
-            "-=0.6",
-          )
-        });
-        // Animate the project cards
-        gsap.from(
-          ".project-cards > div",
+        }).from(
+          paraSplit.lines,
           {
-            y: 50,
+            yPercent: 100,
             opacity: 0,
-            duration: 0.8,
-            ease: "power2.out",
-            stagger: 0.15,
-          }
+            duration: 1.2,
+            ease: "expo.out",
+            stagger: 0.1,
+          },
+          "-=0.6",
         );
+      });
+      // Animate the project cards
+      gsap.from(".project-cards > div", {
+        y: 50,
+        opacity: 0,
+        duration: 0.8,
+        ease: "power2.out",
+        stagger: 0.15,
+      });
     },
     { scope: containerRef },
   );
@@ -77,13 +73,13 @@ const Projects = () => {
                   All Projects
                 </h2>
 
-                <p className="text-split text-sm md:text-lg font-medium text-text-secondary w-full mx-auto sm:max-w-[70%] md:max-w-[60%]">
+                <p className="text-split text-sm md:text-lg text-text-secondary w-full mx-auto sm:max-w-[70%] md:max-w-[60%]">
                   A showcase of my projects highlighting my skills, creativity,
                   and passion for building impactful digital experiences.
                 </p>
               </div>
 
-              <div className="project-cards grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 bg-surface border-2 border-border rounded-xl p-4 md:p-8 gap-5">
+              <div className="project-cards grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 bg-transparent border-2 border-border rounded-xl p-4 md:p-8 gap-5">
                 {projects.allProjects.map(function (project, index) {
                   return (
                     <div key={index}>

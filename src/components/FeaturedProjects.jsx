@@ -11,6 +11,7 @@ gsap.registerPlugin(useGSAP, ScrollTrigger, SplitText);
 
 const FeaturedProjects = () => {
   const containerRef = useRef(null);
+  const featuredProjects = projects.featureProjects;
 
   useGSAP(
     () => {
@@ -32,61 +33,62 @@ const FeaturedProjects = () => {
           duration: 1.2,
           ease: "expo.out",
           stagger: 0.1,
-        })
-          .to(
-            ".button",
-            {
-              y: 0,
-              opacity: 1,
-              duration: 1,
-              ease: "back.inOut",
-              stagger: 0.1,
-            },
-            "-=0.8",
-          ) // Added overlap so it flows smoother
-        });
-        gsap.from(
-          ".project-cards > div",
+        }).to(
+          ".button",
           {
-            // Changed gsap.from to .from to chain it
-            y: 50,
-            opacity: 0,
-            duration: 0.8,
-            ease: "power2.out",
-            stagger: 0.15,
-            scrollTrigger: {
-              trigger: containerRef.current,
-              start: "top 60%",
-              toggleActions: "play none none none",
-            }
+            y: 0,
+            opacity: 1,
+            duration: 1,
+            ease: "back.inOut",
+            stagger: 0.1,
           },
-          "-=0.6",
-        );
+          "-=0.8",
+        ); // Added overlap so it flows smoother
+      });
+      gsap.from(
+        ".project-slide",
+        {
+          // Changed gsap.from to .from to chain it
+          y: 50,
+          opacity: 0,
+          duration: 0.8,
+          ease: "power2.out",
+          stagger: 0.15,
+          scrollTrigger: {
+            trigger: containerRef.current,
+            start: "top 60%",
+            toggleActions: "play none none none",
+          },
+        },
+        "-=0.6",
+      );
     },
     { scope: containerRef },
   );
 
   return (
-    <section ref={containerRef} className="featured py-20 bg-background">
+    <section ref={containerRef} className="featured py-20 bg-transparent">
       <div className="container max-w-screen-xl mx-auto px-4">
-        <div className="p-4 md:p-8 bg-surface text-text-primary rounded-xl border-2 border-border">
-          <div className="flex flex-wrap justify-between items-center mb-10">
+        <div className="p-4 md:p-8 bg-transparent text-text-primary rounded-xl border-2 border-border">
+          <div className="flex flex-wrap justify-between items-center mb-8">
             <h2 className="header-split text-2xl md:text-4xl font-semibold text-third">
               Featured projects
             </h2>
-            <div className="button opacity-0 mt-3 md:mt-0">
-              <Button
-                content={"View More"}
-                type={"button"}
-                icon={MoveRight}
-                to={"/projects"}
-              />
+            <div className="mt-3 md:mt-0">
+              <div className="button opacity-0">
+                <Button
+                  content={"View More"}
+                  type={"button"}
+                  icon={MoveRight}
+                  to={"/projects"}
+                />
+              </div>
             </div>
           </div>
-          <div className="project-cards grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-            {projects.featureProjects.map(function (project, index) {
+          <div className="project-cards grid grid-cols-1 gap-5 md:grid-cols-2">
+            {featuredProjects.map(function (project, index) {
               return (
-                <div key={index}>
+                <div key={index} className="project-slide min-w-0">
                   <ProjectCard
                     title={project.title}
                     image={project.image}

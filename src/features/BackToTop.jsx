@@ -32,7 +32,7 @@ const BackToTop = () => {
       onClick={scrollToTop}
       className={`
         group fixed right-5 bottom-5 z-10 cursor-pointer flex justify-center items-center 
-        w-[40px] h-[40px] md:w-[50px] md:h-[50px] rounded-lg bg-text-primary shadow-xl 
+        p-1.5 md:p-2.5 rounded-lg bg-surface text-text-primary border border-border
         transition-all duration-500 ease-in-out
         ${
           isVisible
@@ -40,8 +40,9 @@ const BackToTop = () => {
             : "opacity-0 translate-y-5 scale-90 pointer-events-none"
         }
       `}
+      aria-label="Back to top"
     >
-      <ChevronsUp className="text-surface w-8 transition-transform duration-300 group-hover:-translate-y-1" />
+      <ChevronsUp className="w-8 transition-transform duration-300 group-hover:-translate-y-1" />
     </button>
   );
 };

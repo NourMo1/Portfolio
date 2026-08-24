@@ -1,7 +1,7 @@
 import { useRef } from "react";
 import emailjs from "@emailjs/browser";
 import { toast } from "react-hot-toast";
-import { Check, MoveRight, OctagonX } from "lucide-react";
+import { CircleCheckBig, CircleX, MoveRight, X } from "lucide-react";
 import Button from "../components/Button";
 
 // 1. Import GSAP and ALL plugins, including ScrollSmoother
@@ -11,6 +11,56 @@ import { ScrollTrigger, SplitText, ScrollSmoother } from "gsap/all";
 
 // 2. Register plugins
 gsap.registerPlugin(useGSAP, ScrollTrigger, SplitText, ScrollSmoother);
+
+/* eslint-disable react/prop-types */
+const ContactToast = ({ toastInstance, isSuccess }) => {
+  const Icon = isSuccess ? CircleCheckBig : CircleX;
+
+  return (
+    <div
+      className={`${
+        toastInstance.visible ? "animate-enter" : "animate-leave"
+      } pointer-events-auto flex w-[min(21rem,calc(100vw-2rem))] items-stretch overflow-hidden rounded-xl border border-border bg-surface/95 shadow-xl backdrop-blur-md`}
+      role="status"
+      aria-live="polite"
+    >
+      <div
+        className={`w-1 shrink-0 ${isSuccess ? "bg-primary" : "bg-red-500"}`}
+      />
+      <div className="flex min-w-0 flex-1 items-center gap-3 px-4 py-3">
+        <div
+          className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-lg ${
+            isSuccess
+              ? "bg-primary/15 text-primary"
+              : "bg-red-500/15 text-red-500"
+          }`}
+        >
+          <Icon size={20} strokeWidth={2.25} />
+        </div>
+        <div className="min-w-0">
+          <p className="font-mono text-[10px] font-semibold uppercase tracking-[0.16em] text-text-secondary">
+            {isSuccess ? "Message sent" : "Message not sent"}
+          </p>
+          <p className="mt-0.5 text-sm leading-5 text-text-primary">
+            {isSuccess
+              ? "Thanks, I will be in touch soon."
+              : "Check your details and try again."}
+          </p>
+        </div>
+        <button
+          type="button"
+          onClick={() => toast.dismiss(toastInstance.id)}
+          className="ml-auto shrink-0 rounded-md p-1 text-text-secondary transition-colors hover:bg-background hover:text-text-primary focus:outline-none focus:ring-2 focus:ring-primary"
+          aria-label="Dismiss notification"
+          title="Dismiss notification"
+        >
+          <X size={16} />
+        </button>
+      </div>
+    </div>
+  );
+};
+/* eslint-enable react/prop-types */
 
 const Contact = () => {
   const form = useRef();
@@ -46,28 +96,24 @@ const Contact = () => {
           duration: 1.2,
           ease: "expo.out",
           stagger: 0.1,
-        })
-          .from(
-            paraSplit.lines,
-            {
-              yPercent: 100,
-              opacity: 0,
-              duration: 1.2,
-              ease: "expo.out",
-              stagger: 0.1,
-            },
-            "-=0.6",
-          )
-        });
-        gsap.from(
-          ".form-wrapper",
+        }).from(
+          paraSplit.lines,
           {
-            y: 50,
+            yPercent: 100,
             opacity: 0,
-            duration: 0.8,
-            ease: "power2.out",
-          }
+            duration: 1.2,
+            ease: "expo.out",
+            stagger: 0.1,
+          },
+          "-=0.6",
         );
+      });
+      gsap.from(".form-wrapper", {
+        y: 50,
+        opacity: 0,
+        duration: 0.8,
+        ease: "power2.out",
+      });
     },
     { scope: containerRef },
   );
@@ -81,42 +127,12 @@ const Contact = () => {
       .then(
         () => {
           toast.custom((t) => (
-            <div
-              className={`${
-                t.visible ? "animate-enter" : "animate-leave"
-              } bg-white dark:bg-surface shadow-lg rounded-lg border-2 border-primary pointer-events-auto px-2 py-1 sm:px-4 sm:py-2`}
-            >
-              <div className="flex gap-3 justify-start items-center flex-nowrap">
-                <div className="text-third">
-                  <Check className="text-green-500" />
-                </div>
-                <div>
-                  <p className="text-sm font-medium text-text-primary">
-                    Thank you! Your submission has been received
-                  </p>
-                </div>
-              </div>
-            </div>
+            <ContactToast toastInstance={t} isSuccess />
           ));
         },
-        (error) => {
+        () => {
           toast.custom((t) => (
-            <div
-              className={`${
-                t.visible ? "animate-enter" : "animate-leave"
-              } bg-white dark:bg-surface shadow-lg rounded-lg border-2 border-primary pointer-events-auto px-2 py-1 sm:px-4 sm:py-2`}
-            >
-              <div className="flex gap-3 justify-start items-center flex-nowrap">
-                <div className="text-third">
-                  <OctagonX className="text-red-500" />
-                </div>
-                <div>
-                  <p className="text-sm font-medium text-text-primary">
-                    Submission failed. Check your input and try again
-                  </p>
-                </div>
-              </div>
-            </div>
+            <ContactToast toastInstance={t} isSuccess={false} />
           ));
         },
       );
@@ -131,21 +147,21 @@ const Contact = () => {
             <div className="py-20">
               <div className="text-center mb-10">
                 <h2 className="text-split text-2xl md:text-4xl font-semibold text-text-primary mb-5">
-                  Let's Grow Together!
+                  Let&apos;s Grow Together!
                 </h2>
-                <p className="text-split text-sm md:text-lg font-medium text-text-secondary w-full mx-auto sm:max-w-[70%] lg:max-w-[60%] xl:max-w-[50%]">
+                <p className="text-split text-sm md:text-lg text-text-secondary w-full mx-auto sm:max-w-[70%] lg:max-w-[60%] xl:max-w-[50%]">
                   Awesome, you finally made your decision here! Fill this form &
                   i will contact you back :)
                 </p>
               </div>
 
-              <div className="form-wrapper form p-4 md:p-8 bg-surface shadow-lg rounded-xl mx-auto md:w-[80%] lg:w-[70%]">
+              <div className="form-wrapper form p-4 md:p-8 bg-transparent rounded-xl border-2 border-border mx-auto md:w-[80%] lg:w-[70%]">
                 <form ref={form} onSubmit={sendEmail}>
                   <div className="grid grid-cols-12 gap-5">
                     <div className="name col-span-12 md:col-span-6">
                       <label
                         htmlFor="name"
-                        className="block mb-3 w-fit text-text-primary"
+                        className="block mb-3 font-medium w-fit text-text-primary"
                       >
                         Name
                       </label>
@@ -153,14 +169,14 @@ const Contact = () => {
                         name="user_name"
                         type="text"
                         id="name"
-                        className="block p-3 bg-background text-text-primary outline-0 border-1 border-border focus:border-primary rounded-lg w-full"
+                        className="block p-3 bg-surface/50 text-text-primary outline-0 border-1 border-border focus:border-primary rounded-lg w-full"
                         required
                       />
                     </div>
                     <div className="email col-span-12 md:col-span-6">
                       <label
                         htmlFor="email"
-                        className="block mb-3 w-fit text-text-primary"
+                        className="block mb-3 font-medium w-fit text-text-primary"
                       >
                         Email
                       </label>
@@ -168,14 +184,14 @@ const Contact = () => {
                         name="user_email"
                         type="email"
                         id="email"
-                        className="block p-3 bg-background text-text-primary outline-0 border-1 border-border focus:border-primary rounded-lg w-full"
+                        className="block p-3 bg-surface/50 text-text-primary outline-0 border-1 border-border focus:border-primary rounded-lg w-full"
                         required
                       />
                     </div>
                     <div className="message col-span-12 mb-15">
                       <label
                         htmlFor="message"
-                        className="block mb-3 w-fit text-text-primary"
+                        className="block mb-3 font-medium w-fit text-text-primary"
                       >
                         Message
                       </label>
@@ -183,7 +199,7 @@ const Contact = () => {
                         name="message"
                         type="text"
                         id="message"
-                        className="block p-3 bg-background text-text-primary outline-0 border-1 border-border focus:border-primary rounded-lg w-full resize-none h-30"
+                        className="block p-3 bg-surface/50 text-text-primary outline-0 border-1 border-border focus:border-primary rounded-lg w-full resize-none h-30"
                         required
                       ></textarea>
                     </div>

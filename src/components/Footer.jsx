@@ -1,9 +1,8 @@
-import { Link } from 'react-router-dom';
-import Button from './Button';
-import { MoveRight } from 'lucide-react';
+import { Link } from "react-router-dom";
+import Button from "./Button";
+import { MoveRight } from "lucide-react";
 
 const Footer = () => {
-  
   const socialLinks = [
     {
       id: 1,
@@ -11,7 +10,6 @@ const Footer = () => {
       link: "https://www.facebook.com/share/14irtJc8hn/",
       linkBg: "bg-[#1877f2]",
       icon: "fa-facebook-f",
-      iconBg: "group-hover:text-[#1877f2]",
     },
     {
       id: 2,
@@ -19,7 +17,6 @@ const Footer = () => {
       link: "https://github.com/NourMo1",
       linkBg: "bg-[#333]",
       icon: "fa-github",
-      iconBg: "group-hover:text-[#333]",
     },
     {
       id: 3,
@@ -27,18 +24,9 @@ const Footer = () => {
       link: "https://www.linkedin.com/in/nour-aldin-mohamed/",
       linkBg: "bg-[#0a66c2]",
       icon: "fa-linkedin-in",
-      iconBg: "group-hover:text-[#0a66c2]",
-    },
-    {
-      id: 4,
-      app: "Gmail",
-      link: "mailto:nouraldinmowrok@gmail.com",
-      linkBg: "bg-[#ea4335]",
-      icon: "fa-google",
-      iconBg: "group-hover:text-[#ea4335]",
     },
   ];
-  
+
   const openInNewTab = (event) => {
     event.preventDefault();
     const url = event.currentTarget.href;
@@ -46,35 +34,32 @@ const Footer = () => {
   };
 
   return (
-    <footer className="w-full bg-primary dark:bg-surface text-[#F5F5F5]">
+    <footer className="w-full bg-surface/50 text-text-primary">
       <div className="container max-w-screen-xl mx-auto px-4 py-8">
         <div className="grid grid-cols-12 pb-4 border-b-2 border-b-border">
           <div className="start-project col-span-12 md:col-span-6 mb-5 md:mb-0">
-            <h2 className="text-2xl md:text-4xl font-semibold text-white mb-3">
-              Let's Work Together Today!
+            <h2 className="text-2xl md:text-4xl font-semibold mb-3">
+              Let&apos;s Work Together Today!
             </h2>
             <Button
               content={"Start Project"}
-              btnClass="bg-white text-text-primary dark:text-[#1A1A1A]"
-              iconBgColor="bg-primary dark:bg-[#1A1A1A]"
-              iconColor="text-white"
               type={"button"}
               icon={MoveRight}
               to={"/contact"}
             />
           </div>
           <div className="social col-span-12 md:col-span-6 place-content-center">
-            <ul className="flex md:flex-row md:justify-end">
+            <ul className="flex md:flex-row md:justify-end gap-4">
               {socialLinks.map(function (item) {
                 return (
-                  <li key={item.id} className="me-5 group">
+                  <li key={item.id}>
                     <Link
                       onClick={openInNewTab}
                       to={item.link}
-                      className={`flex justify-center items-center w-[40px] h-[40px] md:w-[50px] md:h-[50px] rounded-lg ${item.linkBg} group-hover:shadow-lg group-hover:bg-white duration-500`}
+                      className={`flex justify-center items-center w-[40px] h-[40px] md:w-[50px] md:h-[50px] rounded-lg ${item.linkBg}`}
                     >
                       <i
-                        className={`fa-brands ${item.icon} text-xl text-white ${item.iconBg} duration-500`}
+                        className={`fa-brands ${item.icon} text-xl text-white duration-500`}
                       ></i>
                     </Link>
                   </li>
@@ -89,16 +74,16 @@ const Footer = () => {
             <Link
               target="_blank"
               to={"https://www.linkedin.com/in/nour-aldin-mohamed/"}
-              className="inline-block text-text-primary dark:text-primary font-semibold"
+              className="inline-block text-primary font-semibold"
             >
               NourMo
             </Link>{" "}
-            · Crafted with passion and creativity. All rights reserved. 
+            · Crafted with passion and creativity. All rights reserved.
           </p>
         </div>
       </div>
     </footer>
   );
-}
+};
 
 export default Footer;

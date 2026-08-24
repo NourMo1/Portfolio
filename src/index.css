@@ -1,47 +1,49 @@
 @import "tailwindcss";
 @config "../tailwind.config.js";
 @custom-variant dark (&:where(.dark, .dark *));
-/* Animations */
-@theme {
-  --animate-loop-scroll: loop-scroll 30s linear infinite;
-  @keyframes loop-scroll {
-    0% {
-      transform: translateX(0);
-    }
-    100% {
-      transform: translateX(-50%);
-    }
-  }
-}
 /* Styles */
 :root {
-  --background: #F9FAFB;
-  --surface: #FFFFFF;
-  --primary: #2563EB;
-  --secondary: #93C5FD;
-  --text-primary: #111827;
-  --text-secondary: #4B5563;
-  --border: #E5E7EB;
-  --glassy-bg: rgba(147, 197, 253, 0.3);   /* #93C5FD light */
+  --background: #f2f7f5;
+  --surface: #ffffff;
+  --primary: #f66554;
+  --secondary: #bae6fd;
+  --text-primary: #102a2a;
+  --text-secondary: #52706e;
+  --border: #d6e5e0;
+  --glassy-bg: rgba(186, 230, 253, 0.42);
+  --page-gradient: linear-gradient(
+    135deg,
+    #f2f7f5 0%,
+    #ddf6ea 48%,
+    #f7fbf9 100%
+  );
 }
 .dark {
-  --background: #0B0B0B;  
-  --surface: #1A1A1A;    
-  --primary: #EF4444;      
-  --secondary: #FCA5A5;    
-  --text-primary: #F5F5F5; 
-  --text-secondary: #A3A3A3; 
-  --border: #262626;
-  --glassy-bg: rgba(252, 165, 165, 0.25);  /* #FCA5A5 dark */       
+  --background: #0b1716;
+  --surface: #122321;
+  --primary: #ea4335;
+  --secondary: #1e5a75;
+  --text-primary: #e8fff7;
+  --text-secondary: #9bb9b2;
+  --border: #28413d;
+  --glassy-bg: rgba(30, 90, 117, 0.45);
+  --page-gradient: linear-gradient(
+    135deg,
+    #0b1716 0%,
+    #173b35 52%,
+    #0d2421 100%
+  );
 }
-html, body {
+html,
+body {
   margin: 0;
   padding: 0;
   width: 100%;
-  /* Do NOT put overflow-x: hidden on the body, it breaks ScrollSmoother! */
 }
 body {
   line-height: 1.8;
+  background: var(--page-gradient);
+  background-attachment: fixed;
 }
 #smooth-wrapper {
   overflow: hidden;
@@ -61,67 +63,20 @@ body {
   transform: scale3d(1, 1, 1);
 }
 .active::after {
-  transform-origin: 0 50%; 
+  transform-origin: 0 50%;
   transform: scale3d(1, 1, 1);
 }
 .hero {
-  background: linear-gradient(
-    180deg,
-    #93C5FD 0%,
-    #FFFFFF 100%
-  );
-}
-.dark .hero {
-  background: linear-gradient(
-    180deg,
-    #FCA5A5 0%,
-    #1A1A1A 100%
-  );
+  background: transparent;
 }
 .text-mask {
-  overflow: hidden; 
+  overflow: hidden;
 }
-.text-reveal, .text-reveal-2 {
+.text-reveal,
+.text-reveal-2 {
   will-change: transform;
 }
-.about {
-  background: linear-gradient(
-    180deg,
-    #FFFFFF 0%,
-    #F9FAFB 100%
-  );
-}
-.dark .about {
-  background: linear-gradient(
-    180deg,
-    #1A1A1A 0%,
-    #0B0B0B 100%
-  );
-}
-.contact {
-  background: linear-gradient(180deg, #ffffff 10%, #F9FAFB 35%);
-}
-.dark .contact {
-  background: linear-gradient(180deg, #1A1A1A 10%, #0B0B0B 35%);
-}
-.projects {
-  background: linear-gradient(180deg, #ffffff 2%, #F9FAFB 15%);
-}
-.dark .projects {
-  background: linear-gradient(180deg, #1A1A1A 2%, #0B0B0B 15%);
-}
-.shadow-left {
-  background-image: linear-gradient(90deg, #ffffff, #0000);
-}
-.shadow-right {
-  background-image: linear-gradient(90deg, #0000, #ffffff);
-}
-.dark .shadow-left {
-  background-image: linear-gradient(90deg, var(--surface), #0000);
-}
-.dark .shadow-right {
-  background-image: linear-gradient(90deg, #0000, var(--surface));
-}
-input, textarea {
-  transition: border-color .3s;
+input,
+textarea {
+  transition: border-color 0.3s;
 }

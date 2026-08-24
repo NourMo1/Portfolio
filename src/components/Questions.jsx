@@ -102,16 +102,16 @@ const Questions = () => {
   );
 
   return (
-    <section ref={containerRef} className="py-20 bg-background">
+    <section ref={containerRef} className="py-20 bg-transparent">
       <div className="container max-w-screen-xl mx-auto px-4">
-        <div className="grid grid-cols-12 gap-5 p-4 md:p-8 bg-surface rounded-xl shadow-lg">
+        <div className="grid grid-cols-12 gap-5 p-4 md:p-8 bg-transparent rounded-xl border-border border-2">
           {/* Header Section */}
           <div className="col-span-12 flex flex-col md:flex-row md:justify-between gap-5 mb-10">
             <h2 className="split text-2xl md:text-4xl font-bold text-text-primary">
               Frequently asked <br /> questions
             </h2>
             <div>
-              <p className="split text-sm md:text-lg font-medium text-text-secondary mb-5">
+              <p className="split text-sm md:text-lg text-text-secondary mb-5">
                 Have questions? <br /> Here I answer to the ones I get asked
                 most often.
               </p>

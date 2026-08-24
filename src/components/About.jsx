@@ -1,9 +1,7 @@
 import gsap from "gsap";
-import hand from "./../assets/hand-shake.svg";
 import { useGSAP } from "@gsap/react";
 import { ScrollTrigger, SplitText } from "gsap/all";
 import { useRef } from "react";
-import { BadgeCheck } from "lucide-react";
 
 gsap.registerPlugin(useGSAP, ScrollTrigger, SplitText);
 
@@ -12,7 +10,7 @@ const About = () => {
 
   const infoItems = [
     { label: "Birth", value: "Alexandria" },
-    { label: "Experience", value: "1+ Years" },
+    { label: "Experience", value: "+1 Years" },
     { label: "Date of birth", value: "15 Jan 2003" },
   ];
 
@@ -74,22 +72,20 @@ const About = () => {
           start: "center 60%",
           toggleActions: "play none none none",
         },
-      })
+      });
     },
     { scope: containerRef },
   );
 
   return (
-    <section ref={containerRef} className="about py-20">
+    <section ref={containerRef} className="about pb-20 pt:10 md:pt:20">
       <div className="container max-w-screen-xl mx-auto px-4 md:px-20">
-        <div className="grid grid-cols-12 gap-5 mb-15 md:mb-25">
+        <div className="grid grid-cols-12 gap-4 mb-15 md:mb-25">
           <div className="col-span-12 md:col-span-6 lg:col-span-5">
-            <div className="px-4 py-2 rounded-lg md:px-6 md:py-3 md:rounded-xl bg-primary w-fit flex justify-center items-center mb-10">
-              <BadgeCheck
-                className="text-[#F5F5F5] dark:text-text-primary w-6 me-2"
-              />
-              <p className="text-[#F5F5F5] font-medium dark:text-text-primary text-xs md:text-sm">
-                Hi, I'm Nour Aldin Mohamed
+            <div className="px-4 py-2 rounded-lg md:px-6 md:py-3 md:rounded-xl bg-surface/50 border-2 border-border w-fit flex justify-center items-center mb-10">
+              <span className="h-px w-8 me-2 bg-text-secondary" />
+              <p className="text-[10px] font-semibold uppercase tracking-[0.2em] text-text-secondary">
+                Hi, I&apos;m Nour Aldin Mohamed
               </p>
             </div>
             <h2 className="text-split text-text-primary text-xl sm:text-2xl md:text-4xl font-bold leading-8 md:leading-12 mt-5">
@@ -99,10 +95,10 @@ const About = () => {
           <div className="about-content col-span-12 md:col-span-6 lg:col-span-7 w-full md:w-[90%] lg:w-[80%] md:place-self-end">
             <p className="text-split text-text-primary text-lg md:text-xl font-bold mb-5">
               Jr frontend developer skilled in HTML, CSS, and JavaScript, eager
-              to build responsive and user friendly web applications.
+              to build responsive and high performance web applications.
             </p>
-            <p className="text-split text-text-secondary text-sm md:text-lg font-medium mb-5">
-              Student at Kafrelsheikh University, Faculty of Engineering,
+            <p className="text-split text-text-secondary text-sm md:text-lg mb-5">
+              Graduated from Kafrelsheikh University, Faculty of Engineering,
               Computer Engineering.
             </p>
             <div className="info-items flex justify-between items-center gap-2 flex-wrap">
@@ -119,7 +115,7 @@ const About = () => {
             </div>
           </div>
         </div>
-        <div className="grid grid-cols-12 gap-5 border-2 border-border rounded-xl place-items-center">
+        <div className="grid grid-cols-12 gap-4 border-2 border-border rounded-xl place-items-center bg-surface/25">
           <div className="col-span-12 sm:col-span-4 text-center p-4">
             <div className="p-4">
               <span className="stat-number block text-primary text-lg sm:text-xl md:text-2xl lg:text-4xl font-bold mb-5">
@@ -130,7 +126,7 @@ const About = () => {
               </p>
             </div>
           </div>
-          <div className="col-span-12 sm:col-span-4 text-center p-4 w-full bg-surface">
+          <div className="col-span-12 sm:col-span-4 text-center p-4 w-full border-b-2 border-t-2 sm:border-t-0 sm:border-b-0 sm:border-s-2 sm:border-e-2 border-border">
             <div className="p-4">
               <span className="stat-number block text-primary text-lg sm:text-xl md:text-2xl lg:text-4xl font-bold mb-5">
                 18

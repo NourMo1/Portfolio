@@ -47,7 +47,7 @@ const AccordionItem = ({ title, content, isExpanded, onToggle }) => {
   return (
     <button
       onClick={onToggle}
-      className="col-span-12 cursor-pointer bg-background p-5 md:p-10 rounded-xl border-2 border-border transition-colors duration-300 w-full"
+      className="col-span-12 cursor-pointer bg-surface/50 p-5 md:p-10 rounded-xl border-2 border-border transition-colors duration-300 w-full"
     >
       <div className="grid grid-cols-12 gap-5 place-items-center sm:place-items-start">
         <div className="col-span-12 flex items-center justify-between gap-5 w-full">
@@ -66,7 +66,7 @@ const AccordionItem = ({ title, content, isExpanded, onToggle }) => {
         // Initial state set to 0 height and 0 opacity so it mounts collapsed natively
         className="overflow-hidden h-0 opacity-0 m-0"
       >
-        <p className="text-sm md:text-lg font-normal text-text-secondary text-left">
+        <p className="text-sm md:text-lg text-text-secondary text-left">
           {content}
         </p>
       </div>
