@@ -11,45 +11,56 @@ gsap.registerPlugin(useGSAP, ScrollTrigger, SplitText, ScrollSmoother);
 const Projects = () => {
   const containerRef = useRef(null);
 
+  useGSAP(() => {
+    const wrapper = containerRef.current;
+    const content = wrapper?.querySelector("#smooth-content");
+
+    if (!wrapper || !content) return undefined;
+
+    const smoother = ScrollSmoother.create({
+      wrapper,
+      content,
+      smooth: 1.5,
+      effects: true,
+    });
+
+    return () => smoother.kill();
+  });
+
   useGSAP(
-    () => {
-      ScrollSmoother.create({
-        wrapper: "#smooth-wrapper",
-        content: "#smooth-content",
-        smooth: 1.5,
-        effects: true,
-      });
+    (context, contextSafe) => {
+      document.fonts.ready.then(
+        contextSafe(() => {
+          const headerSplit = new SplitText("h2.text-split", { type: "lines" });
+          const paraSplit = new SplitText("p.text-split", { type: "lines" });
 
-      document.fonts.ready.then(() => {
-        const headerSplit = new SplitText("h2.text-split", { type: "lines" });
-        const paraSplit = new SplitText("p.text-split", { type: "lines" });
-
-        const tl = gsap.timeline({
-          scrollTrigger: {
-            trigger: "#smooth-content",
-            start: "top 80%",
-            toggleActions: "play none none none",
-          },
-        });
-        // CHAINED ANIMATION FOR HEADER AND PARAGRAPH LINES
-        tl.from(headerSplit.lines, {
-          yPercent: 100,
-          opacity: 0,
-          duration: 1.2,
-          ease: "expo.out",
-          stagger: 0.1,
-        }).from(
-          paraSplit.lines,
-          {
+          const tl = gsap.timeline({
+            scrollTrigger: {
+              trigger: "#smooth-content",
+              start: "top 80%",
+              toggleActions: "play none none none",
+            },
+          });
+          // CHAINED ANIMATION FOR HEADER AND PARAGRAPH LINES
+          tl.from(headerSplit.lines, {
             yPercent: 100,
             opacity: 0,
             duration: 1.2,
             ease: "expo.out",
             stagger: 0.1,
-          },
-          "-=0.6",
-        );
-      });
+          }).from(
+            paraSplit.lines,
+            {
+              yPercent: 100,
+              opacity: 0,
+              duration: 1.2,
+              ease: "expo.out",
+              stagger: 0.1,
+            },
+            "-=0.6",
+          );
+        }),
+      );
       // Animate the project cards
       gsap.from(".project-cards > div", {
         y: 50,
@@ -79,7 +90,7 @@ const Projects = () => {
                 </p>
               </div>
 
-              <div className="project-cards grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 bg-transparent border-2 border-border rounded-xl p-4 md:p-8 gap-5">
+              <div className="project-cards grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 bg-transparent border-2 border-border rounded-3xl md:rounded-4xl p-4 md:p-8 gap-5">
                 {projects.allProjects.map(function (project, index) {
                   return (
                     <div key={index}>

@@ -34,21 +34,21 @@ const Footer = () => {
   };
 
   return (
-    <footer className="w-full bg-surface/50 text-text-primary">
+    <footer className="w-full bg-surface/50 border-t-2 border-border text-text-primary rounded-ss-3xl md:rounded-ss-4xl rounded-se-3xl md:rounded-se-4xl">
       <div className="container max-w-screen-xl mx-auto px-4 py-8">
-        <div className="grid grid-cols-12 pb-4 border-b-2 border-b-border">
-          <div className="start-project col-span-12 md:col-span-6 mb-5 md:mb-0">
+        <div className="pb-4 border-b-2 border-b-border">
+          <div className="start-project mb-5 md:mb-0">
             <h2 className="text-2xl md:text-4xl font-semibold mb-3">
               Let&apos;s Work Together Today!
             </h2>
+          </div>
+          <div className="social flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4">
             <Button
               content={"Start Project"}
               type={"button"}
               icon={MoveRight}
               to={"/contact"}
             />
-          </div>
-          <div className="social col-span-12 md:col-span-6 place-content-center">
             <ul className="flex md:flex-row md:justify-end gap-4">
               {socialLinks.map(function (item) {
                 return (
@@ -70,7 +70,7 @@ const Footer = () => {
         </div>
         <div className="copyright text-center pt-4">
           <p className="text-sm md:text-lg font-normal">
-            © 2025{" "}
+            © 2026{" "}
             <Link
               target="_blank"
               to={"https://www.linkedin.com/in/nour-aldin-mohamed/"}
@@ -78,7 +78,7 @@ const Footer = () => {
             >
               NourMo
             </Link>{" "}
-            · Crafted with passion and creativity. All rights reserved.
+            · Crafted with passion · All rights reserved.
           </p>
         </div>
       </div>

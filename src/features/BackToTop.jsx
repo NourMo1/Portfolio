@@ -31,7 +31,7 @@ const BackToTop = () => {
     <button
       onClick={scrollToTop}
       className={`
-        group fixed right-5 bottom-5 z-10 cursor-pointer flex justify-center items-center 
+        group fixed right-2 bottom-2 md:right-4 md:bottom-4 z-10 cursor-pointer flex justify-center items-center 
         p-1.5 md:p-2.5 rounded-lg bg-surface text-text-primary border border-border
         transition-all duration-500 ease-in-out
         ${

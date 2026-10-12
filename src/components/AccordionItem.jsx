@@ -1,5 +1,6 @@
-import React, { useRef, useEffect } from "react";
+import { useRef, useEffect } from "react";
 import { Sparkle } from "lucide-react";
+import PropTypes from "prop-types";
 import gsap from "gsap";
 
 const AccordionItem = ({ title, content, isExpanded, onToggle }) => {
@@ -47,14 +48,14 @@ const AccordionItem = ({ title, content, isExpanded, onToggle }) => {
   return (
     <button
       onClick={onToggle}
-      className="col-span-12 cursor-pointer bg-surface/50 p-5 md:p-10 rounded-xl border-2 border-border transition-colors duration-300 w-full"
+      className="col-span-12 cursor-pointer bg-surface/50 p-3 md:p-6 rounded-xl md:rounded-2xl border-2 border-border transition-colors duration-300 w-full"
     >
       <div className="grid grid-cols-12 gap-5 place-items-center sm:place-items-start">
         <div className="col-span-12 flex items-center justify-between gap-5 w-full">
           <span className="flex justify-center items-center px-2 py-1 sm:px-3 sm:py-2 rounded-lg bg-primary">
             <Sparkle ref={iconRef} className="w-4.5 sm:w-5 text-[#F5F5F5]" />
           </span>
-          <h3 className="text-lg md:text-xl text-left font-medium text-text-primary w-full">
+          <h3 className="text-lg md:text-xl text-left font-medium text-text-primary w-full leading-tight">
             {title}
           </h3>
         </div>
@@ -72,6 +73,13 @@ const AccordionItem = ({ title, content, isExpanded, onToggle }) => {
       </div>
     </button>
   );
+};
+
+AccordionItem.propTypes = {
+  title: PropTypes.string.isRequired,
+  content: PropTypes.string.isRequired,
+  isExpanded: PropTypes.bool.isRequired,
+  onToggle: PropTypes.func.isRequired,
 };
 
 export default AccordionItem;

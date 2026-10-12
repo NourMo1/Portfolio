@@ -9,43 +9,45 @@ const About = () => {
   const containerRef = useRef(null);
 
   const infoItems = [
-    { label: "Birth", value: "Alexandria" },
+    { label: "Location", value: "Egypt" },
     { label: "Experience", value: "+1 Years" },
     { label: "Date of birth", value: "15 Jan 2003" },
   ];
 
   useGSAP(
-    () => {
-      document.fonts.ready.then(() => {
-        const headerSplit = new SplitText("h2.text-split", { type: "lines" });
-        const paraSplit = new SplitText("p.text-split", { type: "lines" });
+    (context, contextSafe) => {
+      document.fonts.ready.then(
+        contextSafe(() => {
+          const headerSplit = new SplitText("h2.text-split", { type: "lines" });
+          const paraSplit = new SplitText("p.text-split", { type: "lines" });
 
-        const tl = gsap.timeline({
-          scrollTrigger: {
-            trigger: containerRef.current,
-            start: "top center",
-            toggleActions: "play none none none",
-          },
-        });
+          const tl = gsap.timeline({
+            scrollTrigger: {
+              trigger: containerRef.current,
+              start: "top center",
+              toggleActions: "play none none none",
+            },
+          });
 
-        // CHAINED STRICTLY IN ORDER TO CREATE A SEQUENTIAL ANIMATION EFFECT
-        // Step 1: Header
-        tl.from(headerSplit.lines, {
-          yPercent: 100,
-          opacity: 0,
-          duration: 1.2,
-          ease: "expo.out",
-          stagger: 0.1,
-        })
-          // Step 2: Paragraphs
-          .from(paraSplit.lines, {
+          // CHAINED STRICTLY IN ORDER TO CREATE A SEQUENTIAL ANIMATION EFFECT
+          // Step 1: Header
+          tl.from(headerSplit.lines, {
             yPercent: 100,
             opacity: 0,
             duration: 1.2,
             ease: "expo.out",
             stagger: 0.1,
-          });
-      });
+          })
+            // Step 2: Paragraphs
+            .from(paraSplit.lines, {
+              yPercent: 100,
+              opacity: 0,
+              duration: 1.2,
+              ease: "expo.out",
+              stagger: 0.1,
+            });
+        }),
+      );
       // Animate the info items
       gsap.from(".info-items > div", {
         opacity: 0,
@@ -115,7 +117,7 @@ const About = () => {
             </div>
           </div>
         </div>
-        <div className="grid grid-cols-12 gap-4 border-2 border-border rounded-xl place-items-center bg-surface/25">
+        <div className="grid grid-cols-12 gap-4 border-2 border-border rounded-3xl md:rounded-4xl place-items-center bg-surface/25">
           <div className="col-span-12 sm:col-span-4 text-center p-4">
             <div className="p-4">
               <span className="stat-number block text-primary text-lg sm:text-xl md:text-2xl lg:text-4xl font-bold mb-5">

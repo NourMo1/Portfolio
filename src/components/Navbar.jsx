@@ -70,7 +70,7 @@ const Navbar = () => {
               "0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.05)",
             ease: "none",
             scrollTrigger: {
-              trigger: "html",
+              trigger: document.documentElement,
               start: "top top",
               end: "+=150",
               scrub: 0.5,
@@ -88,7 +88,7 @@ const Navbar = () => {
           duration: 0.2,
           ease: "power2.out",
           scrollTrigger: {
-            trigger: "html",
+            trigger: document.documentElement,
             start: "top -40",
             toggleActions: "play none none reverse",
           },

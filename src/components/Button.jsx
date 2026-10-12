@@ -1,4 +1,5 @@
 import { useNavigate } from "react-router-dom";
+import PropTypes from "prop-types";
 
 const Button = ({
   content = "Click Me",
@@ -43,6 +44,17 @@ const Button = ({
       </button>
     </div>
   );
+};
+
+Button.propTypes = {
+  content: PropTypes.node,
+  type: PropTypes.string,
+  btnClass: PropTypes.string,
+  iconBgColor: PropTypes.string,
+  iconColor: PropTypes.string,
+  icon: PropTypes.elementType,
+  to: PropTypes.string,
+  download: PropTypes.string,
 };
 
 export default Button;

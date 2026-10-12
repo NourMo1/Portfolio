@@ -66,48 +66,58 @@ const Contact = () => {
   const form = useRef();
   const containerRef = useRef(null);
 
+  useGSAP(() => {
+    const wrapper = containerRef.current;
+    const content = wrapper?.querySelector("#smooth-content");
+
+    if (!wrapper || !content) return undefined;
+
+    const smoother = ScrollSmoother.create({
+      wrapper,
+      content,
+      smooth: 1.5,
+      effects: true,
+    });
+
+    return () => smoother.kill();
+  });
+
   useGSAP(
-    () => {
-      // 3. Initialize ScrollSmoother first
-      ScrollSmoother.create({
-        wrapper: "#smooth-wrapper",
-        content: "#smooth-content",
-        smooth: 1.5,
-        effects: true,
-      });
+    (context, contextSafe) => {
+      document.fonts.ready.then(
+        contextSafe(() => {
+          const headerSplit = new SplitText("h2.text-split", { type: "lines" });
+          const paraSplit = new SplitText("p.text-split", { type: "lines" });
 
-      document.fonts.ready.then(() => {
-        const headerSplit = new SplitText("h2.text-split", { type: "lines" });
-        const paraSplit = new SplitText("p.text-split", { type: "lines" });
+          const tl = gsap.timeline({
+            scrollTrigger: {
+              // Target the smooth-content wrapper for accurate triggering
+              trigger: "#smooth-content",
+              start: "top 80%",
+              toggleActions: "play none none none",
+            },
+          });
 
-        const tl = gsap.timeline({
-          scrollTrigger: {
-            // Target the smooth-content wrapper for accurate triggering
-            trigger: "#smooth-content",
-            start: "top 80%",
-            toggleActions: "play none none none",
-          },
-        });
-
-        // 4. Chain the animations
-        tl.from(headerSplit.lines, {
-          yPercent: 100,
-          opacity: 0,
-          duration: 1.2,
-          ease: "expo.out",
-          stagger: 0.1,
-        }).from(
-          paraSplit.lines,
-          {
+          // 4. Chain the animations
+          tl.from(headerSplit.lines, {
             yPercent: 100,
             opacity: 0,
             duration: 1.2,
             ease: "expo.out",
             stagger: 0.1,
-          },
-          "-=0.6",
-        );
-      });
+          }).from(
+            paraSplit.lines,
+            {
+              yPercent: 100,
+              opacity: 0,
+              duration: 1.2,
+              ease: "expo.out",
+              stagger: 0.1,
+            },
+            "-=0.6",
+          );
+        }),
+      );
       gsap.from(".form-wrapper", {
         y: 50,
         opacity: 0,
@@ -126,9 +136,7 @@ const Contact = () => {
       })
       .then(
         () => {
-          toast.custom((t) => (
-            <ContactToast toastInstance={t} isSuccess />
-          ));
+          toast.custom((t) => <ContactToast toastInstance={t} isSuccess />);
         },
         () => {
           toast.custom((t) => (
@@ -149,13 +157,13 @@ const Contact = () => {
                 <h2 className="text-split text-2xl md:text-4xl font-semibold text-text-primary mb-5">
                   Let&apos;s Grow Together!
                 </h2>
-                <p className="text-split text-sm md:text-lg text-text-secondary w-full mx-auto sm:max-w-[70%] lg:max-w-[60%] xl:max-w-[50%]">
+                <p className="text-split text-sm md:text-lg text-text-secondary w-full mx-auto md:w-[65%] lg:w-[70%] xl:w-[75%]">
                   Awesome, you finally made your decision here! Fill this form &
-                  i will contact you back :)
+                  i will contact you back.
                 </p>
               </div>
 
-              <div className="form-wrapper form p-4 md:p-8 bg-transparent rounded-xl border-2 border-border mx-auto md:w-[80%] lg:w-[70%]">
+              <div className="form-wrapper form p-4 md:p-8 bg-transparent rounded-3xl md:rounded-4xl border-2 border-border mx-auto md:w-[80%] lg:w-[70%]">
                 <form ref={form} onSubmit={sendEmail}>
                   <div className="grid grid-cols-12 gap-5">
                     <div className="name col-span-12 md:col-span-6">
@@ -169,7 +177,7 @@ const Contact = () => {
                         name="user_name"
                         type="text"
                         id="name"
-                        className="block p-3 bg-surface/50 text-text-primary outline-0 border-1 border-border focus:border-primary rounded-lg w-full"
+                        className="block p-3 bg-surface/50 text-text-primary outline-0 border-1 border-border focus:border-primary rounded-xl md:rounded-2xl w-full"
                         required
                       />
                     </div>
@@ -184,7 +192,7 @@ const Contact = () => {
                         name="user_email"
                         type="email"
                         id="email"
-                        className="block p-3 bg-surface/50 text-text-primary outline-0 border-1 border-border focus:border-primary rounded-lg w-full"
+                        className="block p-3 bg-surface/50 text-text-primary outline-0 border-1 border-border focus:border-primary rounded-xl md:rounded-2xl w-full"
                         required
                       />
                     </div>
@@ -199,7 +207,7 @@ const Contact = () => {
                         name="message"
                         type="text"
                         id="message"
-                        className="block p-3 bg-surface/50 text-text-primary outline-0 border-1 border-border focus:border-primary rounded-lg w-full resize-none h-30"
+                        className="block p-3 bg-surface/50 text-text-primary outline-0 border-1 border-border focus:border-primary rounded-xl md:rounded-2xl w-full resize-none h-30"
                         required
                       ></textarea>
                     </div>

@@ -38,65 +38,53 @@ const Questions = () => {
   const containerRef = useRef(null);
 
   useGSAP(
-    () => {
-      document.fonts.ready.then(() => {
-        const hSplit = new SplitText("h2.split", { type: "lines" });
-        const paraSplit = new SplitText("p.split", { type: "lines" });
+    (context, contextSafe) => {
+      document.fonts.ready.then(
+        contextSafe(() => {
+          const hSplit = new SplitText("h2.split", { type: "lines" });
 
-        const tl = gsap.timeline({
-          scrollTrigger: {
-            trigger: containerRef.current,
-            start: "top 60%",
-            toggleActions: "play none none none",
-          },
-        });
+          const tl = gsap.timeline({
+            scrollTrigger: {
+              trigger: containerRef.current,
+              start: "top 60%",
+              toggleActions: "play none none none",
+            },
+          });
 
-        // CHAIN EVERYTHING TO THE TIMELINE
-        tl.from(hSplit.lines, {
-          yPercent: 100,
-          opacity: 0,
-          duration: 1.2,
-          ease: "expo.out",
-          stagger: 0.1,
-        })
-          .from(
-            paraSplit.lines,
-            {
-              yPercent: 100,
-              opacity: 0,
-              duration: 1.2,
-              ease: "expo.out",
-              stagger: 0.1,
-            },
-            "-=0.6",
-          )
-          .to(
-            ".button",
-            {
-              y: 0,
-              opacity: 1,
-              duration: 1,
-              ease: "back.inOut",
-            },
-            "-=0.8",
-          )
-          // NEW: Animate the accordion items sequentially
-          .fromTo(
-            ".accordion-item",
-            {
-              y: 40,
-              opacity: 0,
-            },
-            {
-              y: 0,
-              opacity: 1,
-              duration: 0.8,
-              ease: "power3.out",
-              stagger: 0.15, // This is what makes them appear one after another
-            },
-            "-=0.5", // Starts slightly before the button animation finishes
-          );
-      });
+          tl.from(hSplit.lines, {
+            yPercent: 100,
+            opacity: 0,
+            duration: 1.2,
+            ease: "expo.out",
+            stagger: 0.1,
+          })
+            .to(
+              ".button",
+              {
+                y: 0,
+                opacity: 1,
+                duration: 1,
+                ease: "back.inOut",
+              },
+              "-=0.8",
+            )
+            .fromTo(
+              ".accordion-item",
+              {
+                y: 40,
+                opacity: 0,
+              },
+              {
+                y: 0,
+                opacity: 1,
+                duration: 0.8,
+                ease: "power3.out",
+                stagger: 0.15,
+              },
+              "-=0.5",
+            );
+        }),
+      );
     },
     { scope: containerRef },
   );
@@ -104,17 +92,21 @@ const Questions = () => {
   return (
     <section ref={containerRef} className="py-20 bg-transparent">
       <div className="container max-w-screen-xl mx-auto px-4">
-        <div className="grid grid-cols-12 gap-5 p-4 md:p-8 bg-transparent rounded-xl border-border border-2">
+        <div className="p-4 md:p-8 bg-transparent rounded-3xl md:rounded-4xl border-border border-2">
           {/* Header Section */}
-          <div className="col-span-12 flex flex-col md:flex-row md:justify-between gap-5 mb-10">
-            <h2 className="split text-2xl md:text-4xl font-bold text-text-primary">
-              Frequently asked <br /> questions
-            </h2>
+          <div className="flex flex-wrap justify-between items-center mb-8">
             <div>
-              <p className="split text-sm md:text-lg text-text-secondary mb-5">
-                Have questions? <br /> Here I answer to the ones I get asked
-                most often.
-              </p>
+              <div className="flex items-center">
+                <span className="h-px w-8 me-2 bg-text-secondary" />
+                <p className="text-sm font-medium tracking-wide text-text-secondary">
+                  Selected questions
+                </p>
+              </div>
+              <h2 className="split text-2xl md:text-4xl font-semibold text-text-primary">
+                Frequently Asked Questions
+              </h2>
+            </div>
+            <div className="mt-3 md:mt-0">
               <div className="button opacity-0 translate-y-4">
                 <Button
                   content={"Ask A Question"}
@@ -127,22 +119,24 @@ const Questions = () => {
           </div>
 
           {/* Accordion Section */}
-          {data.map(function (items) {
-            return (
-              // Added wrapper div with 'accordion-item' class for GSAP to target
-              // and 'col-span-12' to maintain your grid layout
-              <div
-                key={items.id}
-                className="accordion-item col-span-12 opacity-0"
-              >
-                <AccordionItem
-                  {...items}
-                  isExpanded={expandedId === items.id}
-                  onToggle={() => toggleExpand(items.id)}
-                />
-              </div>
-            );
-          })}
+          <div className="flex flex-col gap-4 md:gap-5">
+            {data.map(function (items) {
+              return (
+                // Added wrapper div with 'accordion-item' class for GSAP to target
+                // and 'col-span-12' to maintain your grid layout
+                <div
+                  key={items.id}
+                  className="accordion-item col-span-12 opacity-0 translate-y-4"
+                >
+                  <AccordionItem
+                    {...items}
+                    isExpanded={expandedId === items.id}
+                    onToggle={() => toggleExpand(items.id)}
+                  />
+                </div>
+              );
+            })}
+          </div>
         </div>
       </div>
     </section>

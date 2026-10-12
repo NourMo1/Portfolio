@@ -1,4 +1,5 @@
 import About from "./../components/About";
+import Skills from "../components/Skills";
 import FeaturedProjects from "./../components/FeaturedProjects";
 import Questions from "./../components/Questions";
 import BackToTop from "../features/BackToTop";
@@ -16,18 +17,26 @@ gsap.registerPlugin(useGSAP, ScrollTrigger, ScrollSmoother);
 const Home = () => {
   const containerRef = useRef(null);
 
-  useGSAP(
-    () => {
-      // Initialize ScrollSmoother
-      const smoother = ScrollSmoother.create({
-        wrapper: "#smooth-wrapper",
-        content: "#smooth-content",
-        smooth: 1.5,
-        effects: true,
-      });
+  useGSAP(() => {
+    const wrapper = containerRef.current;
+    const content = wrapper?.querySelector("#smooth-content");
 
+    if (!wrapper || !content) return undefined;
+
+    const smoother = ScrollSmoother.create({
+      wrapper,
+      content,
+      smooth: 1.5,
+      effects: true,
+    });
+
+    return () => smoother.kill();
+  });
+
+  useGSAP(
+    (context, contextSafe) => {
       // --- TEXT REVEAL TIMELINE ---
-      document.fonts.ready.then(() => {
+      document.fonts.ready.then(contextSafe(() => {
         const tl = gsap.timeline({
           defaults: { duration: 1.2, ease: "back.inOut", force3D: true },
         });
@@ -60,7 +69,7 @@ const Home = () => {
             },
             "-=1",
           );
-      });
+      }));
 
       // --- INDEPENDENT FLOATING / BOBBING ANIMATION ---
       const floatBadges = gsap.utils.toArray(".floating-badge");
@@ -80,10 +89,6 @@ const Home = () => {
       setTimeout(() => {
         ScrollTrigger.refresh();
       }, 500);
-
-      return () => {
-        if (smoother) smoother.kill();
-      };
     },
     { scope: containerRef },
   );
@@ -199,6 +204,7 @@ const Home = () => {
 
           {/* Components */}
           <About />
+          <Skills />
           <FeaturedProjects />
           <Questions />
           <Footer />

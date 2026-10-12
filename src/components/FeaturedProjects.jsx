@@ -14,37 +14,39 @@ const FeaturedProjects = () => {
   const featuredProjects = projects.featureProjects;
 
   useGSAP(
-    () => {
-      document.fonts.ready.then(() => {
-        const hSplit = new SplitText("h2.header-split", { type: "lines" });
+    (context, contextSafe) => {
+      document.fonts.ready.then(
+        contextSafe(() => {
+          const hSplit = new SplitText("h2.header-split", { type: "lines" });
 
-        const tl = gsap.timeline({
-          scrollTrigger: {
-            trigger: containerRef.current,
-            start: "top 60%",
-            toggleActions: "play none none none",
-          },
-        });
+          const tl = gsap.timeline({
+            scrollTrigger: {
+              trigger: containerRef.current,
+              start: "top 60%",
+              toggleActions: "play none none none",
+            },
+          });
 
-        // CHAIN EVERYTHING TO THE TIMELINE
-        tl.from(hSplit.lines, {
-          yPercent: 100,
-          opacity: 0,
-          duration: 1.2,
-          ease: "expo.out",
-          stagger: 0.1,
-        }).to(
-          ".button",
-          {
-            y: 0,
-            opacity: 1,
-            duration: 1,
-            ease: "back.inOut",
+          // CHAIN EVERYTHING TO THE TIMELINE
+          tl.from(hSplit.lines, {
+            yPercent: 100,
+            opacity: 0,
+            duration: 1.2,
+            ease: "expo.out",
             stagger: 0.1,
-          },
-          "-=0.8",
-        ); // Added overlap so it flows smoother
-      });
+          }).to(
+            ".button",
+            {
+              y: 0,
+              opacity: 1,
+              duration: 1,
+              ease: "back.inOut",
+              stagger: 0.1,
+            },
+            "-=0.8",
+          ); // Added overlap so it flows smoother
+        }),
+      );
       gsap.from(
         ".project-slide",
         {
@@ -69,15 +71,23 @@ const FeaturedProjects = () => {
   return (
     <section ref={containerRef} className="featured py-20 bg-transparent">
       <div className="container max-w-screen-xl mx-auto px-4">
-        <div className="p-4 md:p-8 bg-transparent text-text-primary rounded-xl border-2 border-border">
+        <div className="p-4 md:p-8 bg-transparent text-text-primary rounded-3xl md:rounded-4xl border-2 border-border">
           <div className="flex flex-wrap justify-between items-center mb-8">
-            <h2 className="header-split text-2xl md:text-4xl font-semibold text-third">
-              Featured projects
-            </h2>
+            <div>
+              <div className="flex items-center">
+                <span className="h-px w-8 me-2 bg-text-secondary" />
+                <p className="text-sm font-medium tracking-wide text-text-secondary">
+                  Selected work
+                </p>
+              </div>
+              <h2 className="header-split text-2xl md:text-4xl font-semibold text-third">
+                Featured Projects
+              </h2>
+            </div>
             <div className="mt-3 md:mt-0">
-              <div className="button opacity-0">
+              <div className="button opacity-0 translate-y-4">
                 <Button
-                  content={"View More"}
+                  content={"View All Projects"}
                   type={"button"}
                   icon={MoveRight}
                   to={"/projects"}
@@ -85,7 +95,7 @@ const FeaturedProjects = () => {
               </div>
             </div>
           </div>
-          <div className="project-cards grid grid-cols-1 gap-5 md:grid-cols-2">
+          <div className="project-cards grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3">
             {featuredProjects.map(function (project, index) {
               return (
                 <div key={index} className="project-slide min-w-0">
