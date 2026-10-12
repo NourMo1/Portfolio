@@ -9,7 +9,7 @@ You can view the live version of the website here:
 
 ## 🛠️ Technologies Used
 
-- **Frontend:** React, Tailwind CSS, Framer Motion.
+- **Frontend:** React, Tailwind CSS, and GSAP.
 - **Hosting:** Vercel.
 
 ## 🚀 Features
